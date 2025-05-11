@@ -17,6 +17,11 @@ from datetime import datetime
 from pymongo import MongoClient
 
 client = MongoClient("mongodb+srv://tammeni25:mentalhealth255@tamminicluster.nunk6nw.mongodb.net/?retryWrites=true&w=majority&appName=tamminicluster")
+try:
+    client.admin.command("ping")
+    print("✅ MongoDB connected!")
+except Exception as e:
+    print(f"❌ Connection failed: {e}")
 db = client["tammini_db"]
 users_col = db["users"]
 responses_col = db["responses"]
