@@ -25,7 +25,10 @@ def load_lottieurl(url):
 lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
 
 # MongoDB connection (replace <your_password> if needed)
-client = MongoClient("mongodb+srv://tammeni25:tammeni25tammeni@tammini.pcsh9ci.mongodb.net/tammini_db?retryWrites=true&w=majority&authSource=admin")
+from pymongo import MongoClient
+
+client = MongoClient("mongodb+srv://adminuser:tammeni25@tammini.pcsh9ci.mongodb.net/tammini_db?retryWrites=true&w=majority&authSource=admin")
+
 
 db = client["tammini_db"]
 users_col = db["users"]
