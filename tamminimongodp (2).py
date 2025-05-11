@@ -11,6 +11,18 @@ Original file is located at
 import streamlit as st
 from pymongo import MongoClient
 from datetime import datetime
+import requests                      
+from streamlit_lottie import st_lottie 
+
+
+def load_lottieurl(url):
+    response = requests.get(url)
+    if response.status_code != 200:
+        return None
+    return response.json()
+
+# Load the brain animation
+lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
 
 # MongoDB connection (replace <your_password> if needed)
 client = MongoClient("mongodb+srv://tammeni25:tammeni25@tammini.pcsh9ci.mongodb.net/?retryWrites=true&w=majority&appName=tammini")
@@ -36,13 +48,6 @@ def signup():
             st.success("تم التسجيل! يمكنك الآن تسجيل الدخول.")
 
 
-def load_lottieurl(url):
-    response = requests.get(url)
-    if response.status_code != 200:
-        return None
-    return response.json()
-
-lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
 
 def login():
     st.subheader("🔑 تسجيل الدخول")
