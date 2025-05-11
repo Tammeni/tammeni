@@ -17,12 +17,12 @@ from streamlit_lottie import st_lottie
 # MongoDB connection (replace <your_password> if needed)
 from pymongo import MongoClient
 
-mongodb+srv://tammeni25:mentalhealth255@tamminicluster.nunk6nw.mongodb.net/?retryWrites=true&w=majority&appName=tamminicluster
-
-
+# MongoDB connection (corrected)
+client = MongoClient("mongodb+srv://tammeni25:mentalhealth255@tamminicluster.nunk6nw.mongodb.net/?retryWrites=true&w=majority&appName=tamminicluster")
 db = client["tammini_db"]
 users_col = db["users"]
 responses_col = db["responses"]
+
 
 st.set_page_config(page_title="منصة طَمّني", layout="centered", page_icon="🧠")
 
