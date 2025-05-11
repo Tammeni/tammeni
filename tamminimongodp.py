@@ -7,8 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1StTFnlJuLr177o5LSemfK2M8CNoX6e3j
 """
 
-pip install pymongo
-pip install streamlit
+
 
 import streamlit as st
 from pymongo import MongoClient
