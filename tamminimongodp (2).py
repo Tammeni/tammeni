@@ -20,6 +20,8 @@ responses_col = db["responses"]
 
 st.set_page_config(page_title="منصة طَمّني", layout="centered", page_icon="🧠")
 
+
+
 # ----------------- Auth -----------------
 
 def signup():
@@ -33,6 +35,15 @@ def signup():
             users_col.insert_one({"username": username, "password": password})
             st.success("تم التسجيل! يمكنك الآن تسجيل الدخول.")
 
+
+def load_lottieurl(url):
+    response = requests.get(url)
+    if response.status_code != 200:
+        return None
+    return response.json()
+
+lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
+
 def login():
     st.subheader("🔑 تسجيل الدخول")
     username = st.text_input("اسم المستخدم")
@@ -42,8 +53,13 @@ def login():
         if user:
             st.session_state['user'] = username
             st.success("مرحباً بك، تم تسجيل الدخول.")
+            
+            # ✅ Show animation
+            st_lottie(lottie_brain, height=250, speed=1, loop=False)
         else:
             st.error("بيانات الدخول غير صحيحة.")
+
+
 
 # ----------------- Questionnaire -----------------
 
