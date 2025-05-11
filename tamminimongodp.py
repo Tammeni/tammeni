@@ -14,6 +14,8 @@ from pymongo import MongoClient
 from datetime import datetime
 
 # MongoDB connection (replace <your_password> if needed)
+from pymongo import MongoClient
+
 client = MongoClient("mongodb+srv://tammeni25:mentalhealth255@tamminicluster.nunk6nw.mongodb.net/?retryWrites=true&w=majority&appName=tamminicluster")
 db = client["tammini_db"]
 users_col = db["users"]
