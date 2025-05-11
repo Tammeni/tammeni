@@ -126,7 +126,8 @@ st.markdown("""
     <div class='title-container'>
         <h1>طَمّني</h1>
         <h3>منصة تقييم الصحة النفسية باستخدام الذكاء الاصطناعي</h3>
-        <img src='https://cdn-icons-png.flaticon.com/512/4320/4320337.png' width='90'/>
+      <img src='https://cdn-icons-png.flaticon.com/512/4320/4320337.png' width='90'/>
+
     </div>
 """, unsafe_allow_html=True)
 
@@ -136,7 +137,8 @@ if 'page' not in st.session_state:
     st.session_state.page = "landing"
 
 if st.session_state.page == "landing":
-    if st.button("Log in / Sign up"):
+    if st.button("تسجيل الدخول / إنشاء حساب"):
+
         st.session_state.page = "auth"
     st.stop()
 
