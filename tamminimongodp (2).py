@@ -14,16 +14,6 @@ from datetime import datetime
 import requests                      
 from streamlit_lottie import st_lottie 
 
-
-def load_lottieurl(url):
-    response = requests.get(url)
-    if response.status_code != 200:
-        return None
-    return response.json()
-
-# Load the brain animation
-lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
-
 # MongoDB connection (replace <your_password> if needed)
 from pymongo import MongoClient
 
