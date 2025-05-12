@@ -41,7 +41,8 @@ def load_lottieurl(url):
     return response.json()
 
 # Load animation once for reuse
-lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
+lottie_brain = load_lottieurl("https://assets5.lottiefiles.com/private_files/lf30_editor_6kwnqzdr.json")
+
 
 
 # ----------------- Landing Page -----------------
