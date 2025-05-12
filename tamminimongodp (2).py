@@ -11,7 +11,7 @@ users_col = db["users"]
 responses_col = db["responses"]
 
 # ----------------- Page Config -----------------
-st.set_page_config(page_title="منصة طَمّني", layout="centered", page_icon="🧠")
+st.set_page_config(page_title="منصة طَمّني", layout="centered", page_icon=None)
 
 # ----------------- Landing Page -----------------
 def show_landing_page():
@@ -37,14 +37,14 @@ def show_landing_page():
         }
         h3 {
             color: #222;
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 20px;
         }
         </style>
         <div class='landing-container'>
             <h1>طَمّني</h1>
             <h3>منصة تقييم الصحة النفسية باستخدام الذكاء الاصطناعي</h3>
-            <img src='https://cdn-icons-png.flaticon.com/512/4320/4320337.png' width='130' alt='brain icon'/>
+            <h3 style='color: #d9534f;'> هذه المنصة لا تُعد بديلاً عن الطبيب، بل تُساعد الأطباء في اتخاذ قراراتهم</h3>
         </div>
     """, unsafe_allow_html=True)
 
@@ -53,7 +53,10 @@ def show_landing_page():
 
 # ----------------- Auth -----------------
 def signup():
-    st.subheader("🔐 تسجيل حساب جديد")
+    st.markdown("""
+        <h1 style='text-align: center; color: #005b99;'>طَمّني</h1>
+    """, unsafe_allow_html=True)
+    st.subheader("تسجيل حساب جديد")
     username = st.text_input("اسم المستخدم")
     password = st.text_input("كلمة المرور", type="password")
     if st.button("تسجيل"):
@@ -62,50 +65,53 @@ def signup():
             st.warning("هذا المستخدم مسجل بالفعل. يتم عرض التقرير الأول:")
             existing_response = responses_col.find_one({"username": username}, sort=[("timestamp", 1)])
             if existing_response:
-                st.markdown("### 📂 التقرير الأول للمستخدم:")
-                st.write(f"👤 الجنس: {existing_response['gender']}")
-                st.write(f"📅 العمر: {existing_response['age']}")
+                st.markdown("### التقرير الأول للمستخدم:")
+                st.write(f"الجنس: {existing_response['gender']}")
+                st.write(f"العمر: {existing_response['age']}")
                 for i in range(1, 7):
                     st.write(f"س{i}: {existing_response.get(f'q{i}', '')}")
                 if "result" in existing_response:
-                    st.success(f"✅ النتيجة: {existing_response['result']}")
+                    st.success(f"النتيجة: {existing_response['result']}")
                 else:
-                    st.info("📌 لم يتم تحليل النتيجة بعد.")
+                    st.info("لم يتم تحليل النتيجة بعد.")
             else:
-                st.info("🔍 لا توجد ردود سابقة.")
+                st.info("لا توجد ردود سابقة.")
         else:
             users_col.insert_one({"username": username, "password": password})
-            st.success("✅ تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
+            st.success("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
 
 def login():
-    st.subheader("🔑 تسجيل الدخول")
+    st.markdown("""
+        <h1 style='text-align: center; color: #005b99;'>طَمّني</h1>
+    """, unsafe_allow_html=True)
+    st.subheader("تسجيل الدخول")
     username = st.text_input("اسم المستخدم")
     password = st.text_input("كلمة المرور", type="password")
     if st.button("دخول"):
         user = users_col.find_one({"username": username, "password": password})
         if user:
             st.session_state['user'] = username
-            st.success("مرحباً بك، تم تسجيل الدخول.")
+            st.success("تم تسجيل الدخول بنجاح.")
 
-            if st.button("📜 عرض سجل المستخدم"):
+            if st.button("عرض سجل المستخدم"):
                 history = responses_col.find({"username": username}).sort("timestamp", -1)
                 for i, resp in enumerate(history, 1):
-                    st.markdown(f"---\n### 📝 المحاولة رقم {i}:")
-                    st.write(f"⏰ التاريخ: {resp['timestamp'].strftime('%Y-%m-%d %H:%M:%S')}")
-                    st.write(f"👤 الجنس: {resp['gender']}")
-                    st.write(f"📅 العمر: {resp['age']}")
+                    st.markdown(f"---\nالمحاولة رقم {i}:")
+                    st.write(f"التاريخ: {resp['timestamp'].strftime('%Y-%m-%d %H:%M:%S')}")
+                    st.write(f"الجنس: {resp['gender']}")
+                    st.write(f"العمر: {resp['age']}")
                     for qn in range(1, 7):
                         st.write(f"س{qn}: {resp.get(f'q{qn}', '')}")
                     if "result" in resp:
-                        st.success(f"✅ النتيجة: {resp['result']}")
+                        st.success(f"النتيجة: {resp['result']}")
                     else:
-                        st.info("📌 لم يتم تحليل النتيجة بعد.")
+                        st.info("لم يتم تحليل النتيجة بعد.")
         else:
             st.error("بيانات الدخول غير صحيحة.")
 
 # ----------------- Questionnaire -----------------
 def questionnaire():
-    st.subheader("📝 التقييم النفسي")
+    st.subheader("التقييم النفسي")
     gender = st.radio("ما هو جنسك؟", ["ذكر", "أنثى"])
     age = st.radio("ما هي فئتك العمرية؟", ["18-29", "30-39", "40-49", "50+"])
 
@@ -137,9 +143,9 @@ def questionnaire():
                     **answers,
                     "timestamp": datetime.now()
                 })
-                st.success("✅ تم حفظ الإجابات.")
+                st.success(" تم حفظ الإجابات.")
             else:
-                st.error("⚠️ يرجى تسجيل الدخول أولاً.")
+                st.error(" يرجى تسجيل الدخول أولاً.")
 
 # ----------------- Navigation -----------------
 if 'page' not in st.session_state:
@@ -158,4 +164,5 @@ if 'user' not in st.session_state:
     st.stop()
 else:
     questionnaire()
+
 
