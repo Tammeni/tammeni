@@ -14,11 +14,18 @@ from datetime import datetime
 import requests                      
 from streamlit_lottie import st_lottie 
 
-# MongoDB connection (replace <your_password> if needed)
+
 from pymongo import MongoClient
 
-# MongoDB connection (corrected)
-client = MongoClient("mongodb+srv://tammeni25:mentalhealth255@tamminicluster.nunk6nw.mongodb.net/?retryWrites=true&w=majority&appName=tamminicluster")
+
+
+
+uri = "mongodb+srv://tammeni25:mentalhealth255@tamminicluster.nunk6nw.mongodb.net/?retryWrites=true&w=majority&authSource=admin"
+
+# ✅ Establish client connection
+client = MongoClient(uri)
+
+# ✅ Select database and collections
 db = client["tammini_db"]
 users_col = db["users"]
 responses_col = db["responses"]
