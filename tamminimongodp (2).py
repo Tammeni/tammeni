@@ -53,28 +53,23 @@ def show_landing_page():
             padding: 30px;
             background-color: #b3e0ff;
             border-radius: 12px;
-            margin-bottom: 30px;
+            margin: 20px auto;
+            max-width: 700px;
         }
-        h1 {
-            color: #003366;
-            font-size: 38px;
-            margin-bottom: 10px;
+        .landing-container h1 {
+            color: #005b99;
+            font-size: 42px;
         }
-        h3 {
-            color: #1c1c1c;
-            margin-top: 10px;
-        }
-        .icon {
-            margin-top: 20px;
+        .landing-container h3 {
+            color: #333333;
+            font-size: 24px;
         }
         </style>
 
         <div class='landing-container'>
             <h1>طَمّني</h1>
             <h3>منصة تقييم الصحة النفسية باستخدام الذكاء الاصطناعي</h3>
-            <div class='icon'>
-                <img src='https://cdn-icons-png.flaticon.com/512/4320/4320337.png' width='120'/>
-            </div>
+            <img src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png" width="120" alt="brain icon"/>
         </div>
     """, unsafe_allow_html=True)
 
