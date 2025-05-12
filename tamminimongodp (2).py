@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-"""tamminimongodp.ipynb"""
-
 import streamlit as st
 from pymongo import MongoClient
 from datetime import datetime
@@ -43,7 +41,6 @@ def show_landing_page():
             margin-bottom: 20px;
         }
         </style>
-
         <div class='landing-container'>
             <h1>طَمّني</h1>
             <h3>منصة تقييم الصحة النفسية باستخدام الذكاء الاصطناعي</h3>
@@ -161,3 +158,4 @@ if 'user' not in st.session_state:
     st.stop()
 else:
     questionnaire()
+
