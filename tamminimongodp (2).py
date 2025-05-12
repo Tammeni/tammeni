@@ -22,15 +22,15 @@ from pymongo import MongoClient
 
 uri = "mongodb+srv://tammeni25:mentalhealth255@tamminicluster.nunk6nw.mongodb.net/?retryWrites=true&w=majority&authSource=admin"
 
-# ✅ Establish client connection
+
 client = MongoClient(uri)
 
-# ✅ Select database and collections
+
 db = client["tammini_db"]
 users_col = db["users"]
 responses_col = db["responses"]
 
-
+# ----------------- Page Config -----------------
 st.set_page_config(page_title="منصة طَمّني", layout="centered", page_icon="🧠")
 
 
@@ -42,6 +42,42 @@ def load_lottieurl(url):
 
 # Load animation once for reuse
 lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
+
+
+# ----------------- Landing Page -----------------
+def show_landing_page():
+    st.markdown("""
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+        html, body, .stApp {
+            background-color: #e6f7ff;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+        .landing-container {
+            text-align: center;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #005b99;
+            font-size: 36px;
+        }
+        h3 {
+            color: #333333;
+        }
+        </style>
+        <div class='landing-container'>
+            <h1>مرحباً بك في منصة طَمّني</h1>
+            <h3>لتقييم الصحة النفسية باستخدام الذكاء الاصطناعي</h3>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st_lottie(lottie_brain, height=250, speed=1)
+    if st.button("تسجيل الدخول / إنشاء حساب"):
+        st.session_state.page = "auth"
 
 # ----------------- Auth -----------------
 
