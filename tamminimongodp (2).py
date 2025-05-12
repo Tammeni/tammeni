@@ -183,13 +183,16 @@ def questionnaire():
 
 
 # ----------------- Navigation -----------------
+# ----------------- Navigation -----------------
 if 'page' not in st.session_state:
     st.session_state.page = "landing"
 
+# Show landing page if it's the first visit
 if st.session_state.page == "landing":
     show_landing_page()
     st.stop()
 
+# If no user is logged in, show auth options
 if 'user' not in st.session_state:
     page = st.radio("اختر الصفحة", ["تسجيل الدخول", "تسجيل جديد"], horizontal=True)
     if page == "تسجيل الدخول":
@@ -199,4 +202,3 @@ if 'user' not in st.session_state:
     st.stop()
 else:
     questionnaire()
-
