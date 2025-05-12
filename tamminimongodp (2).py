@@ -233,12 +233,12 @@ st.markdown("""
 if 'page' not in st.session_state:
     st.session_state.page = "landing"
 
+# Landing page logic
 if st.session_state.page == "landing":
-    if st.button("تسجيل الدخول / إنشاء حساب"):
-
-        st.session_state.page = "auth"
+    show_landing_page()  # This will handle the "تسجيل الدخول / إنشاء حساب" button
     st.stop()
 
+# Authentication logic
 if 'user' not in st.session_state:
     page = st.radio("اختر الصفحة", ["تسجيل الدخول", "تسجيل جديد"], horizontal=True)
     if page == "تسجيل الدخول":
@@ -247,5 +247,7 @@ if 'user' not in st.session_state:
         signup()
     st.stop()
 else:
+    # User is authenticated, show the questionnaire
     questionnaire()
+
 
