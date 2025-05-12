@@ -179,51 +179,8 @@ def questionnaire():
 
 # ----------------- Header -----------------
 
-st.markdown("""
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-    html, body, .stApp {
-        background-color: #e6f7ff;
-        font-family: 'Cairo', sans-serif;
-        direction: rtl;
-    }
-    .stButton>button {
-        background-color: #66ccff;
-        color: white;
-        border-radius: 10px;
-        font-size: 18px;
-        padding: 10px 20px;
-        border: none;
-    }
-    .stButton>button:hover {
-        background-color: #4db8ff;
-    }
-    .stRadio>div {
-        background-color: #f2fbff;
-        padding: 10px;
-        border-radius: 10px;
-    }
-    h1, h2, h3 {
-        color: #005b99;
-        text-align: center;
-    }
-    .title-container {
-        background-color: #b3e0ff;
-        padding: 30px;
-        border-radius: 12px;
-        margin-bottom: 30px;
-    }
-    </style>
 
-    <div class='title-container'>
-        <h1>طَمّني</h1>
-        <h3>منصة تقييم الصحة النفسية باستخدام الذكاء الاصطناعي</h3>
-      <img src='https://cdn-icons-png.flaticon.com/512/4320/4320337.png' width='90'/>
 
-    </div>
-""", unsafe_allow_html=True)
-
-# ----------------- Navigation -----------------
 
 # ----------------- Navigation -----------------
 if 'page' not in st.session_state:
