@@ -50,32 +50,32 @@ def show_landing_page():
         }
         .landing-container {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             background-color: #b3e0ff;
             border-radius: 12px;
-            margin: 20px auto;
-            max-width: 700px;
+            margin-bottom: 30px;
         }
-        .landing-container h1 {
+        h1 {
             color: #005b99;
-            font-size: 42px;
+            font-size: 48px;
+            margin-bottom: 10px;
         }
-        .landing-container h3 {
-            color: #333333;
+        h3 {
+            color: #222;
             font-size: 24px;
+            margin-bottom: 20px;
         }
         </style>
 
         <div class='landing-container'>
             <h1>طَمّني</h1>
             <h3>منصة تقييم الصحة النفسية باستخدام الذكاء الاصطناعي</h3>
-            <img src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png" width="120" alt="brain icon"/>
+            <img src='https://cdn-icons-png.flaticon.com/512/4320/4320337.png' width='130' alt='brain icon'/>
         </div>
     """, unsafe_allow_html=True)
 
     if st.button("تسجيل الدخول / إنشاء حساب"):
         st.session_state.page = "auth"
-
 
 # ----------------- Auth -----------------
 
