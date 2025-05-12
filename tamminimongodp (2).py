@@ -34,6 +34,14 @@ responses_col = db["responses"]
 st.set_page_config(page_title="منصة طَمّني", layout="centered", page_icon="🧠")
 
 
+def load_lottieurl(url):
+    response = requests.get(url)
+    if response.status_code != 200:
+        return None
+    return response.json()
+
+# Load animation once for reuse
+lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_4kx2q32n.json")
 
 # ----------------- Auth -----------------
 
