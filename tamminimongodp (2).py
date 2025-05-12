@@ -50,11 +50,32 @@ def signup():
     username = st.text_input("اسم المستخدم")
     password = st.text_input("كلمة المرور", type="password")
     if st.button("تسجيل"):
-        if users_col.find_one({"username": username}):
-            st.error("اسم المستخدم مستخدم بالفعل.")
+        existing_user = users_col.find_one({"username": username})
+        if existing_user:
+            st.warning("هذا المستخدم مسجل بالفعل. يتم عرض التقرير الأول:")
+            
+            # Fetch the earliest response
+            existing_response = responses_col.find_one(
+                {"username": username}, sort=[("timestamp", 1)]
+            )
+            
+            if existing_response:
+                st.markdown("### 🗂️ التقرير الأول للمستخدم:")
+                st.write(f"👤 الجنس: {existing_response['gender']}")
+                st.write(f"📅 العمر: {existing_response['age']}")
+                for i in range(1, 7):
+                    st.write(f"س{i}: {existing_response.get(f'q{i}', '')}")
+
+                if "result" in existing_response:
+                    st.success(f"✅ النتيجة المحللة: {existing_response['result']}")
+                else:
+                    st.info("📌 لم يتم تحليل النتيجة بعد من قبل النموذج.")
+            else:
+                st.info("🔍 لا توجد ردود محفوظة لهذا المستخدم.")
         else:
             users_col.insert_one({"username": username, "password": password})
-            st.success("تم التسجيل! يمكنك الآن تسجيل الدخول.")
+            st.success("✅ تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
+
 
 
 
@@ -96,24 +117,32 @@ def questionnaire():
     q5 = st.text_area(q5_label)
     q6 = st.text_area(q6_label)
 
-    if st.button("إرسال التقييم"):
-        user = st.session_state.get('user')
-        if user:
-            responses_col.insert_one({
-                "username": user,
-                "gender": gender,
-                "age": age,
-                "q1": q1,
-                "q2": q2,
-                "q3": q3,
-                "q4": q4,
-                "q5": q5,
-                "q6": q6,
-                "timestamp": datetime.now()
-            })
-            st.success("✅ تم حفظ الإجابات.")
+       if st.button("إرسال التقييم"):
+        answers = [q1, q2, q3, q4, q5, q6]
+
+        if any(ans.strip() == "" for ans in answers):
+            st.error("❗ الرجاء الإجابة على جميع الأسئلة.")
+        elif any(any(char.isalpha() and char.isascii() for char in ans) for ans in answers):
+            st.error("❗ الرجاء عدم استخدام أحرف إنجليزية في الإجابات.")
         else:
-            st.error("⚠️ يرجى تسجيل الدخول أولاً.")
+            user = st.session_state.get('user')
+            if user:
+                responses_col.insert_one({
+                    "username": user,
+                    "gender": gender,
+                    "age": age,
+                    "q1": q1,
+                    "q2": q2,
+                    "q3": q3,
+                    "q4": q4,
+                    "q5": q5,
+                    "q6": q6,
+                    "timestamp": datetime.now()
+                })
+                st.success("✅ تم حفظ الإجابات.")
+            else:
+                st.error("⚠️ يرجى تسجيل الدخول أولاً.")
+
 
 # ----------------- Header -----------------
 
